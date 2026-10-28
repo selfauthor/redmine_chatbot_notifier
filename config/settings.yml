@@ -1,0 +1,51 @@
+# Настройки плагина Chatbot Notifier.
+#
+# Значения хранятся в таблице settings через Setting.plugin_chatbot_notifier.
+# Поле `format` не является стандартным для Redmine и используется
+# исключительно для валидации в модели ChatbotNotifier::Settings (пункт 3).
+#
+# Важно: Redmine сериализует настройки в YAML, поэтому типы из `default`
+# (boolean/integer/string) будут сохранены и возвращены как есть.
+
+default:
+  # Общая галка «Включить уведомления через чат-бот».
+  enabled:
+    default: false
+    format: boolean
+
+  # Базовый URL API Max (например, https://platform-api2.max.ru).
+  # Схема обязана быть https — проверяется валидатором.
+  api_url:
+    default: ''
+    format: string
+
+  # Токен бота Max. В UI показывается маскированным (********).
+  # При сохранении формы, если значение не изменилось, старое сохраняется.
+  access_token:
+    default: ''
+    format: string
+
+  # ID настраиваемого поля пользователя (UserCustomField типа string),
+  # в котором хранится user_id в Max. 0 — поле не выбрано.
+  max_user_id_custom_field_id:
+    default: 0
+    format: integer
+
+  # Максимальная длина текста для каждого поля сообщения отдельно.
+  # Минимум 100 (ограничение валидатора).
+  max_text_length:
+    default: 2000
+    format: integer
+
+  # Массив интервалов повторных отправок в минутах через запятую.
+  # Каждое значение — целое число >= 1, не более 10 элементов.
+  retry_intervals:
+    default: '1,5,15,60'
+    format: string
+
+  # Развёрнутый список включённых полей (ключи через запятую).
+  # Хранит и ключи групп, и ключи дочерних полей одновременно.
+  # Пример: "main,author,project,entity_url,issue,tracker,status"
+  enabled_fields:
+    default: ''
+    format: string
